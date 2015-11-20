@@ -1,3 +1,3 @@
 #!/bin/sh
-echo "Deploying dist/ folder to GitHub Pages..."
-git subtree push --prefix dist origin gh-pages
+echo "Deploying build/ folder to GitHub Pages..."
+git subtree push --prefix build origin gh-pages
