@@ -1,0 +1,30 @@
+{
+  "name": "isolines",
+  "description": "Clone of the Color Lines game",
+  "main": "app.js",
+  "authors": [
+    "\"Igor Pelekhan <igor@pelekhan.com>\""
+  ],
+  "license": "MIT",
+  "keywords": [
+    "coffeescript",
+    "game",
+    "classic",
+    "isometric",
+    "canvas",
+    "HTML5"
+  ],
+  "homepage": "https://github.com/ipelekhan/isolines",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "zepto": "~1.1.6"
+  }
+}
