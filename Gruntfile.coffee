@@ -9,6 +9,15 @@ module.exports = (grunt) ->
       '.tmp'
     ]
 
+    copy:
+      app:
+        files: [{
+          expand: true
+          cwd: 'source/'
+          src: ['index.html']
+          dest: 'build/'
+        }]
+
     coffeelint:
       options:
         configFile: 'coffeelint.json'
@@ -26,7 +35,6 @@ module.exports = (grunt) ->
         src: ['**/*.coffee']
         dest: 'build/scripts'
         ext: '.js'
-        sourceMap: true
       production:
         expand: true
         cwd: 'source/scripts'
@@ -59,7 +67,6 @@ module.exports = (grunt) ->
       development:
         options:
           sourceComments: true
-          sourceMap: true
         files: [{
           expand: true
           cwd: 'source/styles'
@@ -79,7 +86,6 @@ module.exports = (grunt) ->
     postcss:
       development:
         options:
-          map: true
           processors: [require('autoprefixer') browsers: 'last 2 versions']
         src: 'build/styles/**/*.css'
       production:
@@ -91,8 +97,6 @@ module.exports = (grunt) ->
         src: 'build/styles/**/*.css'
 
     watch:
-      options:
-        livereload: true
       scripts:
         files: ['source/scripts/**/*.coffee']
         tasks: [
@@ -108,23 +112,38 @@ module.exports = (grunt) ->
       images:
         files: ['source/images/**/*.{png,jpg,gif}']
         tasks: ['imagemin']
+      app:
+        files: ['source/index.html']
+        tasks: ['copy']
+
+    browserSync:
+      app:
+        bsFiles:
+          src: 'build/**/*'
+        options:
+          watchTask: true
+          server: './build'
+
 
   grunt.registerTask 'default', [
-    'clean',
-    'coffeelint',
-    'coffee:development',
-    'imagemin',
-    'sass:development',
+    'clean'
+    'copy'
+    'coffeelint'
+    'coffee:development'
+    'imagemin'
+    'sass:development'
     'postcss:development'
+    'browserSync'
     'watch'
   ]
 
   grunt.registerTask 'build', [
-    'clean',
-    'coffeelint',
-    'coffee:production',
-    'uglify',
-    'imagemin',
-    'sass:production',
+    'clean'
+    'copy'
+    'coffeelint'
+    'coffee:production'
+    'uglify'
+    'imagemin'
+    'sass:production'
     'postcss:production'
   ]
