@@ -1,9 +1,57 @@
-.test-style
+// Flat UI Colors
+
+$fc_turquoise : #1abc9c
+$fc_green_sea : #16a085
+$fc_sun_flower : #f1c40f
+$fc_orange : #f39c12
+$fc_emerald : #2ecc71
+$fc_nephritis : #27ae60
+$fc_carrot : #e67e22
+$fc_pumpkin : #d35400
+$fc_peter_river : #3498db
+$fc_belize_hole : #2980b9
+$fc_alizarin : #e74c3c
+$fc_pomegranate : #c0392b
+$fc_amethyst : #9b59b6
+$fc_wisteria : #8e44ad
+$fc_clouds : #ecf0f1
+$fc_silver : #bdc3c7
+$fc_wet_asphalt : #34495e
+$fc_midnight_blue : #2c3e50
+$fc_concrete : #95a5a6
+$fc_asbestos : #7f8c8d
+
+*
+  box-sizing: border-box
+
+h1
   color: salmon
-  background: black
+
+img
+  width: 100%
+
+.test-style
+  color: $fc_nephritis
+  background: $fc_midnight_blue
   display: flex
   -webkit-border-radius: 3px
   border-radius: 3px
+  padding: 8px
+  margin: 15px 0
+
+.another-style
+  color: $fc_clouds
+  background-color: $fc_belize_hole
+  padding: 10px;
+
+  &--block
+    display: block
+    width: 100px;
+
+  &--center
+    text-align: center
+
+
 
 
 
