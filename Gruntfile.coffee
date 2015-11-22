@@ -5,18 +5,8 @@ module.exports = (grunt) ->
   grunt.initConfig
     clean: [
       'build/*'
-      '!build/.gitkeep'
       '.tmp'
     ]
-
-    copy:
-      app:
-        files: [{
-          expand: true
-          cwd: 'source/'
-          src: ['index.html']
-          dest: 'build/'
-        }]
 
     coffeelint:
       options:
@@ -102,19 +92,21 @@ module.exports = (grunt) ->
         tasks: [
           'coffeelint'
           'coffee:development'
+          'includeSource'
         ]
       styles:
         files: ['source/styles/**/*.sass']
         tasks: [
           'sass:development'
           'postcss:development'
+          'includeSource'
         ]
       images:
         files: ['source/images/**/*.{png,jpg,gif}']
         tasks: ['imagemin']
       app:
         files: ['source/index.html']
-        tasks: ['copy']
+        tasks: ['includeSource']
 
     browserSync:
       app:
@@ -170,15 +162,22 @@ module.exports = (grunt) ->
             scalingAlgorithm: 'Mitchell'
             errorOnImageTooSmall: false
 
+    includeSource:
+      options:
+        basePath: 'build'
+      app:
+        files:
+          'build/index.html': 'source/index.html'
+
   grunt.registerTask 'default', [
     'clean'
     'bower'
-    'copy'
     'coffeelint'
     'coffee:development'
     'imagemin'
     'sass:development'
     'postcss:development'
+    'includeSource'
     'browserSync'
     'watch'
   ]
@@ -186,14 +185,14 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', [
     'clean'
     'bower'
-    'copy'
-    'realFavicon'
     'coffeelint'
     'coffee:production'
     'uglify'
     'imagemin'
     'sass:production'
     'postcss:production'
+    'includeSource'
+    'realFavicon'
   ]
 
   grunt.registerTask 'serve', [
