@@ -14,7 +14,7 @@ module.exports = (grunt) ->
         files: [{
           expand: true
           cwd: 'source/'
-          src: ['index.html']
+          src: ['index.html', 'favicon.ico']
           dest: 'build/'
         }]
 
@@ -124,9 +124,23 @@ module.exports = (grunt) ->
           watchTask: true
           server: './build'
 
+    bower:
+      app:
+        dest: 'build/vendor'
+        js_dest: 'build/vendor/scripts'
+        css_dest: 'build/vendor/styles'
+        fonts_dest: 'build/vendor/fonts'
+        images_dest: 'build/vendor/images/'
+
+    'http-server':
+      production:
+        root: 'build'
+        openBrowser: true
+
 
   grunt.registerTask 'default', [
     'clean'
+    'bower'
     'copy'
     'coffeelint'
     'coffee:development'
@@ -139,6 +153,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'clean'
+    'bower'
     'copy'
     'coffeelint'
     'coffee:production'
@@ -146,4 +161,9 @@ module.exports = (grunt) ->
     'imagemin'
     'sass:production'
     'postcss:production'
+  ]
+
+  grunt.registerTask 'serve', [
+    'build'
+    'http-server'
   ]
