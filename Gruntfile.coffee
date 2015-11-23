@@ -5,18 +5,8 @@ module.exports = (grunt) ->
   grunt.initConfig
     clean: [
       'build/*'
-      '!build/.gitkeep'
       '.tmp'
     ]
-
-    copy:
-      app:
-        files: [{
-          expand: true
-          cwd: 'source/'
-          src: ['index.html']
-          dest: 'build/'
-        }]
 
     coffeelint:
       options:
@@ -112,9 +102,17 @@ module.exports = (grunt) ->
       images:
         files: ['source/images/**/*.{png,jpg,gif}']
         tasks: ['imagemin']
+      added:
+        files: [
+          'source/styles/**/*.sass'
+          'source/scripts/**/*.coffee'
+        ]
+        tasks: ['includeSource']
+        options:
+          event: ['added']
       app:
         files: ['source/index.html']
-        tasks: ['copy']
+        tasks: ['includeSource']
 
     browserSync:
       app:
@@ -124,26 +122,86 @@ module.exports = (grunt) ->
           watchTask: true
           server: './build'
 
+    bower:
+      app:
+        dest: 'build/vendor'
+        js_dest: 'build/vendor/scripts'
+        css_dest: 'build/vendor/styles'
+        fonts_dest: 'build/vendor/fonts'
+        images_dest: 'build/vendor/images/'
+
+    'http-server':
+      production:
+        root: 'build'
+        openBrowser: true
+
+    realFavicon:
+      favicons:
+        src: 'source/favicon.svg'
+        dest: 'build'
+        options:
+          iconsPath: '/'
+          html: ['build/index.html']
+          design:
+            ios:
+              pictureAspect: 'backgroundAndMargin'
+              backgroundColor: '#ffffff'
+              margin: '14%'
+            desktopBrowser: {}
+            windows:
+              pictureAspect: 'noChange'
+              backgroundColor: '#da532c'
+              onConflict: 'override'
+            androidChrome:
+              pictureAspect: 'noChange'
+              themeColor: '#ffffff'
+              manifest:
+                name: 'isoLines'
+                display: 'browser'
+                orientation: 'notSet'
+                onConflict: 'override'
+            safariPinnedTab:
+              pictureAspect: 'blackAndWhite'
+              threshold: 46.5625
+              themeColor: '#5bbad5'
+          settings:
+            scalingAlgorithm: 'Mitchell'
+            errorOnImageTooSmall: false
+
+    includeSource:
+      options:
+        basePath: 'build'
+      app:
+        files:
+          'build/index.html': 'source/index.html'
 
   grunt.registerTask 'default', [
     'clean'
-    'copy'
+    'bower'
     'coffeelint'
     'coffee:development'
     'imagemin'
     'sass:development'
     'postcss:development'
+    'includeSource'
     'browserSync'
     'watch'
   ]
 
   grunt.registerTask 'build', [
     'clean'
-    'copy'
+    'bower'
     'coffeelint'
     'coffee:production'
     'uglify'
     'imagemin'
     'sass:production'
     'postcss:production'
+    'includeSource'
+    'realFavicon'
+  ]
+
+  grunt.registerTask 'serve', [
+    'build'
+    'http-server'
   ]
