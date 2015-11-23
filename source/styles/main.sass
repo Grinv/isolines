@@ -24,34 +24,34 @@ $fc_asbestos : #7f8c8d
 *
   box-sizing: border-box
 
-h1
-  color: $fc_pomegranate
+html, body
+  height: 100%
+  background-color: $fc_wet_asphalt
 
-img
-  width: 100%
-
-.test-style
-  color: $fc_nephritis
-  background: $fc_midnight_blue
+.container
   display: flex
-  -webkit-border-radius: 3px
-  border-radius: 3px
-  padding: 8px
-  margin: 15px 0
+  align-items: center
+  justify-content: center
+  height: 100%
 
-.another-style
-  color: $fc_clouds
-  background-color: $fc_belize_hole
-  padding: 10px;
+.hero-unit
+  perspective: 500px
+  opacity: 0.0
+  max-width: 70%
+  background-color: $fc_nephritis
+  color: $fc_midnight_blue
+  font-size: 40px
+  padding: 20px
+  border-radius: 4px
+  display: table
 
-  &--block
-    display: block
-    width: 100px;
+  img
+    width: 64px
+    height: 64px
+    display: table-cell
+    vertical-align: middle
 
-  &--center
-    text-align: center
-
-
-
-
-
+  span
+    display: table-cell
+    vertical-align: middle
+    padding-left: 15px

@@ -92,18 +92,24 @@ module.exports = (grunt) ->
         tasks: [
           'coffeelint'
           'coffee:development'
-          'includeSource'
         ]
       styles:
         files: ['source/styles/**/*.sass']
         tasks: [
           'sass:development'
           'postcss:development'
-          'includeSource'
         ]
       images:
         files: ['source/images/**/*.{png,jpg,gif}']
         tasks: ['imagemin']
+      added:
+        files: [
+          'source/styles/**/*.sass'
+          'source/scripts/**/*.coffee'
+        ]
+        tasks: ['includeSource']
+        options:
+          event: ['added']
       app:
         files: ['source/index.html']
         tasks: ['includeSource']
