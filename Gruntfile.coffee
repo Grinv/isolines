@@ -12,9 +12,14 @@ module.exports = (grunt) ->
       options:
         configFile: 'coffeelint.json'
       app: [
-        'source/scripts/*.coffee'
+        'source/scripts/**/*.coffee'
         'Gruntfile.coffee'
       ]
+
+    sasslint:
+      options:
+        configFile: '.sass-lint.yml'
+      app: ['source/styles/**/*.sass']
 
     coffee:
       development:
@@ -181,10 +186,11 @@ module.exports = (grunt) ->
         message: 'Deploy auto-generated commit'
       src: ['**']
 
+
   grunt.registerTask 'default', [
     'clean'
     'bower'
-    'coffeelint'
+    'lint'
     'coffee:development'
     'imagemin'
     'sass:development'
@@ -197,7 +203,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', [
     'clean'
     'bower'
-    'coffeelint'
+    'lint'
     'coffee:production'
     'uglify'
     'imagemin'
@@ -213,3 +219,8 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask 'deploy', ['gh-pages']
+
+  grunt.registerTask 'lint', [
+    'coffeelint'
+    'sasslint'
+  ]
