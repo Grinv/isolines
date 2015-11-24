@@ -178,6 +178,7 @@ module.exports = (grunt) ->
     'gh-pages':
       options:
         base: 'build'
+        message: 'Deploy auto-generated commit'
       src: ['**']
 
   grunt.registerTask 'default', [
