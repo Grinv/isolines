@@ -4,7 +4,7 @@ module.exports = (grunt) ->
 
   grunt.initConfig
     clean: [
-      'build/*'
+      'build'
       '.tmp'
     ]
 
@@ -175,6 +175,11 @@ module.exports = (grunt) ->
         files:
           'build/index.html': 'source/index.html'
 
+    'gh-pages':
+      options:
+        base: 'build'
+      src: ['**']
+
   grunt.registerTask 'default', [
     'clean'
     'bower'
@@ -205,3 +210,5 @@ module.exports = (grunt) ->
     'build'
     'http-server'
   ]
+
+  grunt.registerTask 'deploy', ['gh-pages']
