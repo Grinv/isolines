@@ -8,7 +8,7 @@ This project is a little bit complicated clone of the old classic Color Lines ga
 
 ## Installation
 
-This project uses grunt build tool, so you'll need to have installed node.js (tested with v4.2.2).
+This project uses grunt as a build tool, so you'll need to have installed node.js (tested with v4.2.2).
 
 ```bash
 $ git clone https://github.com/ipelekhan/isolines.git
@@ -22,10 +22,10 @@ $ npm install -g grunt-cli
 
 There are several grunt tasks pre-defined:
 
-* ```grunt``` is a default task, that builds development version of the project and then runs development server with the browserSync and source watch
+* ```grunt``` is a default task, that builds development version of the project and then runs development server with the Browsersync and source watch
 * ```grunt build``` task builds a production version of the project
-* ```grunt serve``` task builds a production version of the project and starts simple web serve to test it
-* ```grunt deploy``` task deploys project to the gh-pages branch on github (```grunt build``` should be run first)
+* ```grunt serve``` task builds a production version of the project and starts simple web server to test it
+* ```grunt deploy``` task deploys project to the gh-pages branch on the Github (```grunt build``` should be run first)
 
 ## Contributing
 
@@ -33,12 +33,12 @@ There are several grunt tasks pre-defined:
 2. Create your feature branch: `git checkout -b my-new-feature`
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
-5. Do nothing, I am not going to receive PRs for my home project :D
+5. Do nothing, I am not going to receive PRs for my home project :laughing:
 
 ## History
 
-* 2015/11/24 -- Development environment is set (I guess)
-* 2015/11/18 -- Initial commit
+* 2015/11/24 Development environment is set (I guess)
+* 2015/11/18 Initial commit
 
 ## Credits
 
