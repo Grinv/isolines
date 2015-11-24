@@ -26,6 +26,7 @@ There are several grunt tasks pre-defined:
 * ```grunt build``` task builds a production version of the project
 * ```grunt serve``` task builds a production version of the project and starts simple web server to test it
 * ```grunt deploy``` task deploys project to the gh-pages branch on the Github (```grunt build``` should be run first)
+* ```grunt lint``` task runs coffee and sass code linting
 
 ## Contributing
 
