@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "4.1"
+  - "stable"
+before_install:
+  - npm install -g bower
+install:
+  - npm install
+  - bower install
+before_script:
+  - npm install -g grunt
+script:
+  - grunt build
+branches:
+  only:
+    - master
