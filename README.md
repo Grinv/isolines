@@ -1,8 +1,9 @@
 # isoLines
 
 [![Build Status](https://travis-ci.org/ipelekhan/isolines.svg)](https://travis-ci.org/ipelekhan/isolines)
+[![Code Climate](https://codeclimate.com/github/ipelekhan/isolines/badges/gpa.svg)](https://codeclimate.com/github/ipelekhan/isolines)
 
-This project is a quite a bit complicated clone of the classic old Color Lines game.
+This project is a little bit complicated clone of the old classic Color Lines game.
 
 ## Installation
 
@@ -35,12 +36,12 @@ There are several grunt tasks pre-defined:
 
 ## History
 
-2015/11/18 -- Initial commit
-2015/11/24 -- Development environment is set (I guess)
+* 2015/11/24 -- Development environment is set (I guess)
+* 2015/11/18 -- Initial commit
 
 ## Credits
 
-Well, just me, Igor Pelekhan :wink:
+Well, just me, [Igor Pelekhan](//twitter.com/ipelekhan) :wink:
 
 ## License
 
