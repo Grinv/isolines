@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ipelekhan/isolines.svg)](https://travis-ci.org/ipelekhan/isolines)
 [![Code Climate](https://codeclimate.com/github/ipelekhan/isolines/badges/gpa.svg)](https://codeclimate.com/github/ipelekhan/isolines)
+[![Issue Count](https://codeclimate.com/github/ipelekhan/isolines/badges/issue_count.svg)](https://codeclimate.com/github/ipelekhan/isolines)
 
 This project is a little bit complicated clone of the old classic Color Lines game.
 
