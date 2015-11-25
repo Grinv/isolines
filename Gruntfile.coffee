@@ -101,6 +101,7 @@ module.exports = (grunt) ->
       styles:
         files: ['source/styles/**/*.sass']
         tasks: [
+          'sasslint'
           'sass:development'
           'postcss:development'
         ]
