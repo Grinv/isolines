@@ -146,7 +146,7 @@ module.exports = (grunt) ->
         src: 'source/favicon.svg'
         dest: 'build'
         options:
-          iconsPath: '/'
+          iconsPath: './'
           html: ['build/index.html']
           design:
             ios:
