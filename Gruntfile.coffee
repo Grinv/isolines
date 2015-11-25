@@ -24,18 +24,14 @@ module.exports = (grunt) ->
     coffee:
       development:
         options:
-          preserve_dirs: true
-        expand: true
-        cwd: 'source/scripts'
-        src: ['**/*.coffee']
-        dest: 'build/scripts'
-        ext: '.js'
+          join: true
+        files:
+          'build/scripts/main.js': ['source/scripts/**/*.coffee']
       production:
-        expand: true
-        cwd: 'source/scripts'
-        src: ['**/*.coffee']
-        dest: '.tmp/scripts'
-        ext: '.js'
+        options:
+          join: true
+        files:
+          '.tmp/scripts/main.js': ['source/scripts/**/*.coffee']
 
     uglify:
       options:
