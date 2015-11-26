@@ -19,7 +19,10 @@ module.exports = (grunt) ->
     sasslint:
       options:
         configFile: '.sass-lint.yml'
-      app: ['source/styles/**/*.sass']
+      app: [
+        'source/styles/**/*.sass'
+        '!source/styles/main.sass'
+      ]
 
     coffee:
       development:
@@ -61,7 +64,7 @@ module.exports = (grunt) ->
         files: [{
           expand: true
           cwd: 'source/styles'
-          src: ['**/*.sass']
+          src: ['main.sass']
           dest: 'build/styles'
           ext: '.css'
         }]
@@ -69,7 +72,7 @@ module.exports = (grunt) ->
         files: [{
           expand: true
           cwd: 'source/styles'
-          src: ['**/*.sass']
+          src: ['main.sass']
           dest: 'build/styles'
           ext: '.css'
         }]

@@ -17,8 +17,9 @@ rules:
     - ignore-single-line-rulesets: false
   extends-before-declarations: 1
   extends-before-mixins: 1
+  # not working
   final-newline:
-    - 1
+    - 0
     - include: true
   force-attribute-nesting: 0
   force-element-nesting: 0
