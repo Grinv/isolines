@@ -47,6 +47,14 @@ module.exports = (grunt) ->
           dest: 'build/scripts'
           ext: '.min.js'
         }]
+      vendor:
+        files: [{
+          expand: true
+          cwd: '.tmp/vendor/scripts'
+          src: '**/*.js'
+          dest: 'build/vendor/scripts'
+          ext: '.min.js'
+        }]
 
     imagemin:
       all:
@@ -89,6 +97,10 @@ module.exports = (grunt) ->
             require('cssnano')
           ]
         src: 'build/styles/**/*.css'
+      vendor:
+        options:
+          processors: [require('cssnano')]
+        src: 'build/vendor/styles/**/*.css'
 
     watch:
       scripts:
@@ -128,9 +140,15 @@ module.exports = (grunt) ->
           server: './build'
 
     bower:
-      app:
+      development:
         dest: 'build/vendor'
         js_dest: 'build/vendor/scripts'
+        css_dest: 'build/vendor/styles'
+        fonts_dest: 'build/vendor/fonts'
+        images_dest: 'build/vendor/images/'
+      production:
+        dest: 'build/vendor'
+        js_dest: '.tmp/vendor/scripts'
         css_dest: 'build/vendor/styles'
         fonts_dest: 'build/vendor/fonts'
         images_dest: 'build/vendor/images/'
@@ -189,7 +207,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'default', [
     'clean'
-    'bower'
+    'bower:development'
     'lint'
     'coffee:development'
     'imagemin'
@@ -202,7 +220,9 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'clean'
-    'bower'
+    'bower:production'
+    'postcss:vendor'
+    'uglify:vendor'
     'lint'
     'coffee:production'
     'uglify'
