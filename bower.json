@@ -26,6 +26,6 @@
   ],
   "dependencies": {
     "normalize-css": "normalize.css#~3.0.3",
-    "zepto-full": "~1.1.4"
+    "zepto": "~1.1.6"
   }
 }
