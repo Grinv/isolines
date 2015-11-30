@@ -234,7 +234,6 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask 'serve', [
-    'build'
     'http-server'
   ]
 

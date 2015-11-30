@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/ipelekhan/isolines.svg)](https://travis-ci.org/ipelekhan/isolines)
 [![Code Climate](https://codeclimate.com/github/ipelekhan/isolines/badges/gpa.svg)](https://codeclimate.com/github/ipelekhan/isolines)
 [![Issue Count](https://codeclimate.com/github/ipelekhan/isolines/badges/issue_count.svg)](https://codeclimate.com/github/ipelekhan/isolines)
+[![Dependency Status](https://david-dm.org/ipelekhan/isolines.svg)](https://david-dm.org/ipelekhan/isolines)
 
 This project is a little bit complicated clone of the old classic Color Lines game.
 
@@ -24,7 +25,7 @@ There are several grunt tasks pre-defined:
 
 * ```grunt``` is a default task, that builds development version of the project and then runs development server with the Browsersync and source watch
 * ```grunt build``` task builds a production version of the project
-* ```grunt serve``` task builds a production version of the project and starts simple web server to test it
+* ```grunt serve``` task starts simple web server for testing purposes (```grunt build``` should be run first)
 * ```grunt deploy``` task deploys project to the gh-pages branch on the Github (```grunt build``` should be run first)
 * ```grunt lint``` task runs coffee and sass code linting
 
