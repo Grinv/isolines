@@ -9,25 +9,9 @@ class Game
   constructor: ->
     @ctx = @createCanvas()
 
-    greenBall = new Sprite(this)
-    greenBall.sw = 64
-    greenBall.sh = 64
-    greenBall.dw = 64
-    greenBall.dh = 64
-
-    redBall = new Sprite(this)
-    redBall.sx = 64
-    redBall.sw = 64
-    redBall.sh = 64
-    redBall.dw = 64
-    redBall.dh = 64
-
-    purpleBall = new Sprite(this)
-    purpleBall.sx = 128
-    purpleBall.sw = 64
-    purpleBall.sh = 64
-    purpleBall.dw = 64
-    purpleBall.dh = 64
+    greenBall = new GreenBall(this)
+    redBall = new RedBall(this)
+    purpleBall = new PurpleBall(this)
 
     @sprites.push(greenBall)
     @sprites.push(redBall)
@@ -76,35 +60,3 @@ class Game
     x = getRandomNumber(0, @viewWidth)
     y = getRandomNumber(0, @viewHeight)
     @ctx.fillRect(x, y, 30, 30)
-
-class SpriteImage
-  loaded: false
-  src: "images/sprite_sheet.png"
-
-  constructor: ->
-    image = new Image
-    image.src = @src
-    image.onload = => @loaded = true
-    @image = image
-
-class Sprite
-  sx: 0
-  sy: 0
-  sw: 0
-  sh: 0
-  dx: 0
-  dy: 0
-  dw: 0
-  dh: 0
-  image: new SpriteImage
-
-  constructor: (@game) ->
-
-  drawImage: (sx, sy, dx, dy) ->
-    if @image.loaded
-      @game.ctx.drawImage(@image.image, sx, sy, @sw, @sh, dx, dy, @dw, @dh)
-
-  draw: ->
-    @dx = getRandomNumber(-64, 320)
-    @dy = getRandomNumber(-64, 240)
-    @drawImage(@sx, @sy, @dx, @dy)
