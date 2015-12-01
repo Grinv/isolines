@@ -21,20 +21,24 @@ module.exports = (grunt) ->
         configFile: '.sass-lint.yml'
       app: [
         'source/styles/**/*.sass'
-        '!source/styles/main.sass'
       ]
+
+    coffeescript_concat:
+      app:
+        files:
+          '.tmp/scripts/concatenated.coffee': ['source/scripts/**/*.coffee']
 
     coffee:
       development:
         options:
           join: true
         files:
-          'build/scripts/main.js': ['source/scripts/**/*.coffee']
+          'build/scripts/application.js': ['.tmp/scripts/concatenated.coffee']
       production:
         options:
           join: true
         files:
-          '.tmp/scripts/main.js': ['source/scripts/**/*.coffee']
+          '.tmp/scripts/application.js': ['.tmp/scripts/concatenated.coffee']
 
     uglify:
       options:
@@ -72,7 +76,7 @@ module.exports = (grunt) ->
         files: [{
           expand: true
           cwd: 'source/styles'
-          src: ['main.sass']
+          src: ['application.sass']
           dest: 'build/styles'
           ext: '.css'
         }]
@@ -80,7 +84,7 @@ module.exports = (grunt) ->
         files: [{
           expand: true
           cwd: 'source/styles'
-          src: ['main.sass']
+          src: ['application.sass']
           dest: 'build/styles'
           ext: '.css'
         }]
@@ -209,6 +213,7 @@ module.exports = (grunt) ->
     'clean'
     'bower:development'
     'lint'
+    'coffeescript_concat'
     'coffee:development'
     'imagemin'
     'sass:development'
@@ -224,6 +229,7 @@ module.exports = (grunt) ->
     'postcss:vendor'
     'uglify:vendor'
     'lint'
+    'coffeescript_concat'
     'coffee:production'
     'uglify'
     'imagemin'
