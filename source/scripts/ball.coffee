@@ -4,27 +4,18 @@ class Ball extends Sprite
   dw: 64
   dh: 64
 
+  constructor: (game, x, y) ->
+    @dx = x
+    @dy = y
+    super(game)
+
   draw: ->
     @drawImage(@sx, @sy, @dx, @dy)
 
 class GreenBall extends Ball
-  draw: ->
-    @dx = getRandomNumber(-64, 70)
-    @dy = getRandomNumber(-64, 240)
-    super
 
 class RedBall extends Ball
   sx: 64
 
-  draw: ->
-    @dx = getRandomNumber(70, 190)
-    @dy = getRandomNumber(-64, 240)
-    super
-
 class PurpleBall extends Ball
   sx: 128
-
-  draw: ->
-    @dx = getRandomNumber(200, 320)
-    @dy = getRandomNumber(-64, 240)
-    super

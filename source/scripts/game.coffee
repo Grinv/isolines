@@ -1,18 +1,22 @@
 getRandomNumber = (min, max) ->
   Math.floor(Math.random() * (max - min + 1)) + min
 
+getRndPos = ->
+  getRandomNumber(0, 8) * 64 + 20
+
 class Game
-  viewWidth: 576
-  viewHeight: 576
+  viewWidth: 616
+  viewHeight: 616
   ballSprites: []
   gridTile: null
 
   constructor: ->
     @ctx = @createCanvas()
 
-    @ballSprites.push(new GreenBall(this))
-    @ballSprites.push(new RedBall(this))
-    @ballSprites.push(new PurpleBall(this))
+    @ballSprites.push(new GreenBall(this, getRndPos(), getRndPos()))
+    @ballSprites.push(new RedBall(this, getRndPos(), getRndPos()))
+    @ballSprites.push(new PurpleBall(this, getRndPos(), getRndPos()))
+
     @gridTile = new GridTile(this)
 
   createCanvas: ->
@@ -33,23 +37,23 @@ class Game
 
   render: (delta) ->
     @renderGrid()
-    # sprite.draw() for sprite in @ballSprites
+    sprite.draw() for sprite in @ballSprites
     @renderDebugOverlay(delta)
 
   renderDebugOverlay: (delta) ->
-    @ctx.fillStyle = 'black'
-    @ctx.fillRect(5, 5, 80, 20)
+    @ctx.fillStyle = '#10161C'
+    @ctx.fillRect(0, 0, 80, 20)
 
     text = "#{Math.round(1e3 / delta)} FPS"
     @ctx.fillStyle = 'white'
     @ctx.font = 'Bold 15px Helvetica'
-    @ctx.fillText(text, 10, 20)
+    @ctx.fillText(text, 5, 15)
 
   renderGrid: ->
     i = 0
     while i < 9
       j = 0
       while j < 9
-        @gridTile.draw(i * 64, j * 64)
+        @gridTile.draw(i * 64 + 20, j * 64 + 20)
         j++
       i++
