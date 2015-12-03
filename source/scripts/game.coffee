@@ -1,21 +1,23 @@
 getRandomNumber = (min, max) ->
   Math.floor(Math.random() * (max - min + 1)) + min
 
+getRndPos = ->
+  getRandomNumber(0, 8) * 64 + 20
+
 class Game
-  viewWidth: 320
-  viewHeight: 240
-  sprites: []
+  viewWidth: 616
+  viewHeight: 616
+  ballSprites: []
+  gridTile: null
 
   constructor: ->
     @ctx = @createCanvas()
 
-    greenBall = new GreenBall(this)
-    redBall = new RedBall(this)
-    purpleBall = new PurpleBall(this)
+    @ballSprites.push(new GreenBall(this, getRndPos(), getRndPos()))
+    @ballSprites.push(new RedBall(this, getRndPos(), getRndPos()))
+    @ballSprites.push(new PurpleBall(this, getRndPos(), getRndPos()))
 
-    @sprites.push(greenBall)
-    @sprites.push(redBall)
-    @sprites.push(purpleBall)
+    @gridTile = new GridTile(this)
 
   createCanvas: ->
     canvas = document.createElement('canvas')
@@ -34,29 +36,24 @@ class Game
     window.requestAnimationFrame(@update)
 
   render: (delta) ->
-    sprite.draw() for sprite in @sprites
-    # @renderBackground()
-    # @drawRandomBox()
+    @renderGrid()
+    sprite.draw() for sprite in @ballSprites
     @renderDebugOverlay(delta)
 
   renderDebugOverlay: (delta) ->
-    @ctx.fillStyle = 'black'
-    @ctx.fillRect(5, 5, 80, 20)
+    @ctx.fillStyle = '#10161C'
+    @ctx.fillRect(0, 0, 80, 20)
 
     text = "#{Math.round(1e3 / delta)} FPS"
     @ctx.fillStyle = 'white'
     @ctx.font = 'Bold 15px Helvetica'
-    @ctx.fillText(text, 10, 20)
+    @ctx.fillText(text, 5, 15)
 
-  renderBackground: ->
-    @ctx.fillStyle = 'black'
-    @ctx.fillRect(0, 0, @viewWidth, @viewHeight)
-
-  drawRandomBox: ->
-    red = getRandomNumber(0, 255)
-    green = getRandomNumber(0, 255)
-    blue = getRandomNumber(0, 255)
-    @ctx.fillStyle = "rgb(#{red}, #{green}, #{blue})"
-    x = getRandomNumber(0, @viewWidth)
-    y = getRandomNumber(0, @viewHeight)
-    @ctx.fillRect(x, y, 30, 30)
+  renderGrid: ->
+    i = 0
+    while i < 9
+      j = 0
+      while j < 9
+        @gridTile.draw(i * 64 + 20, j * 64 + 20)
+        j++
+      i++
