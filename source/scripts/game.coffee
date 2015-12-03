@@ -50,10 +50,6 @@ class Game
     @ctx.fillText(text, 5, 15)
 
   renderGrid: ->
-    i = 0
-    while i < 9
-      j = 0
-      while j < 9
-        @gridTile.draw(i * 64 + 20, j * 64 + 20)
-        j++
-      i++
+    columns = rows = 9
+    for i in [0...columns * rows]
+      @gridTile.draw((i % columns) * 64 + 20, (i / rows | 0) * 64 + 20)
