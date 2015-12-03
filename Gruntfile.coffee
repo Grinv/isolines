@@ -111,6 +111,7 @@ module.exports = (grunt) ->
         files: ['source/scripts/**/*.coffee']
         tasks: [
           'coffeelint'
+          'coffeescript_concat'
           'coffee:development'
         ]
       styles:
