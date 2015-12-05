@@ -1,9 +1,3 @@
-getRandomNumber = (min, max) ->
-  Math.floor(Math.random() * (max - min + 1)) + min
-
-getRndPos = ->
-  getRandomNumber(0, 8) * 64 + 20
-
 class Game
   viewWidth: 616
   viewHeight: 616
@@ -13,9 +7,11 @@ class Game
   constructor: ->
     @ctx = @createCanvas()
 
-    @ballSprites.push(new GreenBall(this, getRndPos(), getRndPos()))
-    @ballSprites.push(new RedBall(this, getRndPos(), getRndPos()))
-    @ballSprites.push(new PurpleBall(this, getRndPos(), getRndPos()))
+    @ballSprites.push(new GreenBall(this, getRndPos(64, 20), getRndPos(64, 20)))
+    @ballSprites.push(new RedBall(this, getRndPos(64, 20), getRndPos(64, 20)))
+    @ballSprites.push(
+      new PurpleBall(this, getRndPos(64, 20), getRndPos(64, 20))
+    )
 
     @gridTile = new GridTile(this)
 
