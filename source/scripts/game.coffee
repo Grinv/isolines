@@ -3,17 +3,23 @@ class Game
   viewHeight: 616
   ballSprites: []
   gridTile: null
+  fieldSize: 9
+  field: []
 
   constructor: ->
     @ctx = @createCanvas()
 
-    @ballSprites.push(new GreenBall(this, getRndPos(64, 20), getRndPos(64, 20)))
-    @ballSprites.push(new RedBall(this, getRndPos(64, 20), getRndPos(64, 20)))
-    @ballSprites.push(
-      new PurpleBall(this, getRndPos(64, 20), getRndPos(64, 20))
-    )
+    @ballSprites.push(new GreenBall(this))
+    @ballSprites.push(new RedBall(this))
+    @ballSprites.push(new PurpleBall(this))
+    @ballSprites.push(new YellowBall(this))
+    @ballSprites.push(new BlueBall(this))
+    @ballSprites.push(new BlackBall(this))
+    @ballSprites.push(new WhiteBall(this))
 
     @gridTile = new GridTile(this)
+
+    @initBallsPosition()
 
   createCanvas: ->
     canvas = document.createElement('canvas')
@@ -21,6 +27,17 @@ class Game
     canvas.height = @viewHeight
     $('.container .game').append(canvas)
     canvas.getContext('2d')
+
+  initBallsPosition: ->
+    @field = new Array(@fieldSize)
+
+    for i in [0...@fieldSize]
+      @field[i] = new Array(@fieldSize)
+
+    for i in [0...@fieldSize**2]
+      column = i % @fieldSize
+      row = i / @fieldSize | 0
+      @field[row][column] = getRandomNumber(-1, 6)
 
   run: ->
     @update()
@@ -33,7 +50,7 @@ class Game
 
   render: (delta) ->
     @renderGrid()
-    sprite.draw() for sprite in @ballSprites
+    @renderBalls()
     @renderDebugOverlay(delta)
 
   renderDebugOverlay: (delta) ->
@@ -46,6 +63,18 @@ class Game
     @ctx.fillText(text, 5, 15)
 
   renderGrid: ->
-    columns = rows = 9
-    for i in [0...columns * rows]
-      @gridTile.draw((i % columns) * 64 + 20, (i / rows | 0) * 64 + 20)
+    for i in [0...@fieldSize**2]
+      x = (i % @fieldSize) * 64 + 20
+      y = (i / @fieldSize | 0) * 64 + 20
+      @gridTile.draw(x, y)
+
+  renderBalls: ->
+    for i in [0...@fieldSize**2]
+      column = i % @fieldSize
+      row = i / @fieldSize | 0
+
+      continue if @field[row][column] < 0
+
+      x = row * 64 + 20
+      y = column * 64 + 20
+      @ballSprites[@field[row][column]].draw(x, y)

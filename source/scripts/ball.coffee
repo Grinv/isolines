@@ -4,12 +4,12 @@ class Ball extends Sprite
   dw: 64
   dh: 64
 
-  constructor: (game, x, y) ->
-    @dx = x
-    @dy = y
+  constructor: (game) ->
     super(game)
 
-  draw: ->
+  draw: (x, y) ->
+    @dx = x
+    @dy = y
     @drawImage(@sx, @sy, @dx, @dy)
 
 class GreenBall extends Ball
@@ -19,3 +19,18 @@ class RedBall extends Ball
 
 class PurpleBall extends Ball
   sx: 128
+
+class YellowBall extends Ball
+  sy: 64
+
+class BlueBall extends Ball
+  sy: 64
+  sx: 64
+
+class BlackBall extends Ball
+  sy: 64
+  sx: 128
+
+class WhiteBall extends Ball
+  sy: 64
+  sx: 192
