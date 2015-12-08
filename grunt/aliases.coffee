@@ -14,6 +14,7 @@ module.exports =
     'concurrent:production1'
     'concurrent:production2'
     'includeSource'
+    'realFavicon'
   ]
 
   serve: ['http-server']

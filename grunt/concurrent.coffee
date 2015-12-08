@@ -22,7 +22,6 @@ module.exports =
   production0: [
     'bower:production'
     'imagemin'
-    'realFavicon'
     'coffeescript_concat'
   ]
   production1: [
