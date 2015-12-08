@@ -41,6 +41,7 @@
     "grunt-browser-sync": "^2.2.0",
     "grunt-coffeelint": "0.0.13",
     "grunt-coffeescript-concat": "^0.2.0",
+    "grunt-concurrent": "^2.1.0",
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-coffee": "^0.13.0",
     "grunt-contrib-copy": "^0.8.2",
