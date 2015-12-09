@@ -1,10 +1,12 @@
 class Game
   viewWidth: 616
   viewHeight: 616
+  gridOffset: 20
   ballSprites: []
   gridTile: null
   fieldSize: 9
   field: []
+  currentMousePosition: {x: 0, y: 0}
 
   constructor: ->
     @ctx = @createCanvas()
@@ -18,8 +20,9 @@ class Game
     @ballSprites.push(new WhiteBall(this))
 
     @gridTile = new GridTile(this)
-
     @initBallsPosition()
+
+    @initInputHandler()
 
   createCanvas: ->
     canvas = document.createElement('canvas')
@@ -51,6 +54,7 @@ class Game
   render: (delta) ->
     @renderGrid()
     @renderBalls()
+    @renderMouseSelection()
     @renderDebugOverlay(delta)
 
   renderDebugOverlay: (delta) ->
@@ -64,8 +68,8 @@ class Game
 
   renderGrid: ->
     for i in [0...@fieldSize**2]
-      x = (i % @fieldSize) * 64 + 20
-      y = (i / @fieldSize | 0) * 64 + 20
+      x = (i % @fieldSize) * 64 + @gridOffset
+      y = (i / @fieldSize | 0) * 64 + @gridOffset
       @gridTile.draw(x, y)
 
   renderBalls: ->
@@ -75,6 +79,33 @@ class Game
 
       continue if @field[row][column] < 0
 
-      x = row * 64 + 20
-      y = column * 64 + 20
+      x = row * 64 + @gridOffset
+      y = column * 64 + @gridOffset
       @ballSprites[@field[row][column]].draw(x, y)
+
+  renderMouseSelection: ->
+    selection = @getSelection()
+    if selection?
+      @ctx.fillStyle = 'rgba(255, 127, 255, 0.7)'
+      @ctx.fillRect(selection.x * 64 + 20, selection.y * 64 + 20, 64, 64)
+
+  getSelection: ->
+    x = @currentMousePosition.x
+    y = @currentMousePosition.y
+
+    selection = {}
+
+    return null unless x > @gridOffset and x < @viewWidth - @gridOffset
+    return null unless y > @gridOffset and y < @viewHeight - @gridOffset
+
+    selection.x = (x - @gridOffset) / 64 | 0
+    selection.y = (y - @gridOffset) / 64 | 0
+    selection
+
+  initInputHandler: ->
+    $('canvas').on 'click', (event) =>
+      offset = $('canvas').offset()
+      x = event.clientX - offset.left
+      y = event.clientY - offset.top
+      @currentMousePosition.x = x
+      @currentMousePosition.y = y
