@@ -7,6 +7,8 @@
 
 This project is a little bit complicated clone of the old classic Color Lines game.
 
+[![Early pre-alpha version game screenshot](screenshot-from-2015-12-11-14-59-57.png "Screenshot")](screenshot-from-2015-12-11-14-59-57.png)
+
 ## Installation
 
 This project uses grunt as a build tool, so you'll need to have installed node.js (tested with v4.2.2).
