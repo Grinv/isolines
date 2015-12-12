@@ -2,11 +2,12 @@ class Game
   viewWidth: 616
   viewHeight: 616
   gridOffset: 20
+  tileSize: 64
   ballSprites: []
   gridTile: null
   fieldSize: 9
   field: []
-  currentMousePosition: {x: 0, y: 0}
+  mouseSelections: []
   selectionSprites: []
 
   constructor: ->
@@ -44,7 +45,7 @@ class Game
     for i in [0...@fieldSize**2]
       column = i % @fieldSize
       row = i / @fieldSize | 0
-      @field[row][column] = getRandomNumber(-1, 6)
+      @field[row][column] = getRandomNumber(-12, 6)
 
   run: ->
     @update()
@@ -72,8 +73,8 @@ class Game
 
   renderGrid: ->
     for i in [0...@fieldSize**2]
-      x = (i % @fieldSize) * 64 + @gridOffset
-      y = (i / @fieldSize | 0) * 64 + @gridOffset
+      x = (i % @fieldSize) * @tileSize + @gridOffset
+      y = (i / @fieldSize | 0) * @tileSize + @gridOffset
       @gridTile.draw(x, y)
 
   renderBalls: ->
@@ -83,37 +84,48 @@ class Game
 
       continue if @field[row][column] < 0
 
-      x = row * 64 + @gridOffset
-      y = column * 64 + @gridOffset
+      x = row * @tileSize + @gridOffset
+      y = column * @tileSize + @gridOffset
       @ballSprites[@field[row][column]].draw(x, y)
 
   renderMouseSelection: ->
     i = 0
-    for selection in @selectionSprites
-      selection.draw(i * 64 + 20, 20)
+    for selection in @mouseSelections
+      @selectionSprites[i].draw(
+        selection.x * @tileSize + @gridOffset,
+        selection.y * @tileSize + @gridOffset
+      )
       i++
-    # selection = @getSelection()
-    # if selection?
-    #   @ctx.fillStyle = 'rgba(255, 127, 255, 0.7)'
-    #   @ctx.fillRect(selection.x * 64 + 20, selection.y * 64 + 20, 64, 64)
 
-  getSelection: ->
-    x = @currentMousePosition.x
-    y = @currentMousePosition.y
-
+  getSelection: (x, y) ->
     selection = {}
 
     return null unless x > @gridOffset and x < @viewWidth - @gridOffset
     return null unless y > @gridOffset and y < @viewHeight - @gridOffset
 
-    selection.x = (x - @gridOffset) / 64 | 0
-    selection.y = (y - @gridOffset) / 64 | 0
+    selection.x = (x - @gridOffset) / @tileSize | 0
+    selection.y = (y - @gridOffset) / @tileSize | 0
     selection
+
+  isTileFree: (x, y) ->
+    @field[x][y] < 0
 
   initInputHandler: ->
     $('canvas').on 'click', (event) =>
       offset = $('canvas').offset()
       x = event.clientX - offset.left
       y = event.clientY - offset.top
-      @currentMousePosition.x = x
-      @currentMousePosition.y = y
+      currentSelection = @getSelection(x, y)
+
+      if currentSelection?
+        switch @mouseSelections.length
+          when 0
+            unless @isTileFree(currentSelection.x, currentSelection.y)
+              @mouseSelections.push(currentSelection)
+          when 1
+            if @isTileFree(currentSelection.x, currentSelection.y)
+              @mouseSelections.push(currentSelection)
+          when 2
+            unless @isTileFree(currentSelection.x, currentSelection.y)
+              @mouseSelections = []
+              @mouseSelections.push(currentSelection)
