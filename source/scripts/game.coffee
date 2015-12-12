@@ -7,6 +7,7 @@ class Game
   fieldSize: 9
   field: []
   currentMousePosition: {x: 0, y: 0}
+  selectionSprites: []
 
   constructor: ->
     @ctx = @createCanvas()
@@ -18,6 +19,9 @@ class Game
     @ballSprites.push(new BlueBall(this))
     @ballSprites.push(new BlackBall(this))
     @ballSprites.push(new WhiteBall(this))
+
+    @selectionSprites.push(new YellowSelection(this))
+    @selectionSprites.push(new BlueSelection(this))
 
     @gridTile = new GridTile(this)
     @initBallsPosition()
@@ -84,10 +88,14 @@ class Game
       @ballSprites[@field[row][column]].draw(x, y)
 
   renderMouseSelection: ->
-    selection = @getSelection()
-    if selection?
-      @ctx.fillStyle = 'rgba(255, 127, 255, 0.7)'
-      @ctx.fillRect(selection.x * 64 + 20, selection.y * 64 + 20, 64, 64)
+    i = 0
+    for selection in @selectionSprites
+      selection.draw(i * 64 + 20, 20)
+      i++
+    # selection = @getSelection()
+    # if selection?
+    #   @ctx.fillStyle = 'rgba(255, 127, 255, 0.7)'
+    #   @ctx.fillRect(selection.x * 64 + 20, selection.y * 64 + 20, 64, 64)
 
   getSelection: ->
     x = @currentMousePosition.x
