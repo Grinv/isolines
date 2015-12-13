@@ -10,7 +10,7 @@ module.exports =
   ]
   development0: [
     'bower:development'
-    'imagemin'
+    'newer:imagemin'
     'coffeescript_concat'
     'sass:development'
   ]
@@ -21,7 +21,7 @@ module.exports =
 
   production0: [
     'bower:production'
-    'imagemin'
+    'newer:imagemin'
     'coffeescript_concat'
   ]
   production1: [
