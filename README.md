@@ -41,8 +41,9 @@ There are several grunt tasks pre-defined:
 
 ## History
 
-* 2015/11/24 Development environment is set (I guess)
 * 2015/11/18 Initial commit
+* 2015/11/24 Development environment is set (I guess)
+* 2015/12/14 Sprites and selection added
 
 ## Credits
 
