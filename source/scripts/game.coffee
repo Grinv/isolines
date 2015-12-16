@@ -24,6 +24,8 @@ class Game
     @selectionSprites.push(new YellowSelection(this))
     @selectionSprites.push(new BlueSelection(this))
 
+    @pathSprite = new PathSprite(this)
+
     @gridTile = new GridTile(this)
     @initBallsPosition()
 
@@ -59,8 +61,22 @@ class Game
   render: (delta) ->
     @renderGrid()
     @renderBalls()
+    @drawSprite(@pathSprite, 0, 0)
+    @drawSprite(@pathSprite, 1, 1)
+    @drawSprite(@pathSprite, 2, 2)
+    @drawSprite(@pathSprite, 3, 3)
+    @drawSprite(@pathSprite, 4, 4)
+    @drawSprite(@pathSprite, 5, 5)
+    @drawSprite(@pathSprite, 6, 6)
+    @drawSprite(@pathSprite, 7, 7)
+    @drawSprite(@pathSprite, 8, 8)
     @renderMouseSelection()
     @renderDebugOverlay(delta)
+
+  drawSprite: (sprite, i, j) ->
+    x = i * @tileSize + @gridOffset
+    y = j * @tileSize + @gridOffset
+    sprite.draw(x, y)
 
   renderDebugOverlay: (delta) ->
     @ctx.fillStyle = '#10161C'
