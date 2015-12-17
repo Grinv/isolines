@@ -59,8 +59,7 @@ class Game
     window.requestAnimationFrame(@update)
 
   render: (delta) ->
-    @renderGrid()
-    @renderBalls()
+    @renderField()
     @drawSprite(@pathSprite, 0, 0)
     @drawSprite(@pathSprite, 1, 1)
     @drawSprite(@pathSprite, 2, 2)
@@ -73,10 +72,21 @@ class Game
     @renderMouseSelection()
     @renderDebugOverlay(delta)
 
-  drawSprite: (sprite, i, j) ->
-    x = i * @tileSize + @gridOffset
-    y = j * @tileSize + @gridOffset
+  drawSprite: (sprite, m, n) ->
+    x = m * @tileSize + @gridOffset
+    y = n * @tileSize + @gridOffset
     sprite.draw(x, y)
+
+  renderField: ->
+    for i in [0...@fieldSize**2]
+      column = i % @fieldSize
+      row = i / @fieldSize | 0
+
+      @drawSprite(@gridTile, column, row)
+
+      continue if @field[column][row] < 0
+
+      @drawSprite(@ballSprites[@field[column][row]], column, row)
 
   renderDebugOverlay: (delta) ->
     @ctx.fillStyle = '#10161C'
@@ -86,23 +96,6 @@ class Game
     @ctx.fillStyle = 'white'
     @ctx.font = 'Bold 15px Helvetica'
     @ctx.fillText(text, 5, 15)
-
-  renderGrid: ->
-    for i in [0...@fieldSize**2]
-      x = (i % @fieldSize) * @tileSize + @gridOffset
-      y = (i / @fieldSize | 0) * @tileSize + @gridOffset
-      @gridTile.draw(x, y)
-
-  renderBalls: ->
-    for i in [0...@fieldSize**2]
-      column = i % @fieldSize
-      row = i / @fieldSize | 0
-
-      continue if @field[row][column] < 0
-
-      x = row * @tileSize + @gridOffset
-      y = column * @tileSize + @gridOffset
-      @ballSprites[@field[row][column]].draw(x, y)
 
   renderMouseSelection: ->
     i = 0
