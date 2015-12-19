@@ -100,10 +100,7 @@ class Game
   renderMouseSelection: ->
     i = 0
     for selection in @mouseSelections
-      @selectionSprites[i].draw(
-        selection.x * @tileSize + @gridOffset,
-        selection.y * @tileSize + @gridOffset
-      )
+      @drawSprite(@selectionSprites[i], selection.x, selection.y)
       i++
 
   getSelection: (x, y) ->
