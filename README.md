@@ -52,4 +52,4 @@ Well, just me, [Igor Pelekhan](//twitter.com/ipelekhan) :wink:
 
 ## License
 
-See LICENSE file in the current repository.
+See [LICENSE](LICENSE) file in the current repository.
