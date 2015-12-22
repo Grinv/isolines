@@ -9,6 +9,7 @@ class Game
   field: []
   mouseSelections: []
   selectionSprites: []
+  pathNodes: []
 
   constructor: ->
     @ctx = @createCanvas()
@@ -30,6 +31,16 @@ class Game
     @initBallsPosition()
 
     @initInputHandler()
+
+    @pathNodes.push({x: 0, y: 8})
+    @pathNodes.push({x: 1, y: 7})
+    @pathNodes.push({x: 2, y: 6})
+    @pathNodes.push({x: 3, y: 5})
+    @pathNodes.push({x: 4, y: 4})
+    @pathNodes.push({x: 5, y: 3})
+    @pathNodes.push({x: 6, y: 2})
+    @pathNodes.push({x: 7, y: 1})
+    @pathNodes.push({x: 8, y: 0})
 
   createCanvas: ->
     canvas = document.createElement('canvas')
@@ -60,15 +71,7 @@ class Game
 
   render: (delta) ->
     @renderField()
-    @drawSprite(@pathSprite, 0, 0)
-    @drawSprite(@pathSprite, 1, 1)
-    @drawSprite(@pathSprite, 2, 2)
-    @drawSprite(@pathSprite, 3, 3)
-    @drawSprite(@pathSprite, 4, 4)
-    @drawSprite(@pathSprite, 5, 5)
-    @drawSprite(@pathSprite, 6, 6)
-    @drawSprite(@pathSprite, 7, 7)
-    @drawSprite(@pathSprite, 8, 8)
+    @renderPath()
     @renderMouseSelection()
     @renderDebugOverlay(delta)
 
@@ -87,6 +90,10 @@ class Game
       continue if @field[column][row] < 0
 
       @drawSprite(@ballSprites[@field[column][row]], column, row)
+
+  renderPath: ->
+    for node in @pathNodes
+      @drawSprite(@pathSprite, node.x, node.y)
 
   renderDebugOverlay: (delta) ->
     @ctx.fillStyle = '#10161C'
@@ -116,6 +123,10 @@ class Game
   isTileFree: (x, y) ->
     @field[x][y] < 0
 
+  constructPath: ->
+    console.log('constructPath: pending...')
+    @mouseSelections = []
+
   initInputHandler: ->
     $('canvas').on 'click', (event) =>
       offset = $('canvas').offset()
@@ -130,6 +141,10 @@ class Game
               @mouseSelections.push(currentSelection)
           when 1
             if @isTileFree(currentSelection.x, currentSelection.y)
+              @mouseSelections.push(currentSelection)
+              @constructPath()
+            else
+              @mouseSelections = []
               @mouseSelections.push(currentSelection)
           when 2
             unless @isTileFree(currentSelection.x, currentSelection.y)
