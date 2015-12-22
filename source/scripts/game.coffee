@@ -9,6 +9,7 @@ class Game
   field: []
   mouseSelections: []
   selectionSprites: []
+  pathNodes: []
 
   constructor: ->
     @ctx = @createCanvas()
@@ -47,7 +48,7 @@ class Game
     for i in [0...@fieldSize**2]
       column = i % @fieldSize
       row = i / @fieldSize | 0
-      @field[row][column] = getRandomNumber(-12, 6)
+      @field[row][column] = Math.max(-1, getRandomNumber(-12, 6))
 
   run: ->
     @update()
@@ -60,15 +61,7 @@ class Game
 
   render: (delta) ->
     @renderField()
-    @drawSprite(@pathSprite, 0, 0)
-    @drawSprite(@pathSprite, 1, 1)
-    @drawSprite(@pathSprite, 2, 2)
-    @drawSprite(@pathSprite, 3, 3)
-    @drawSprite(@pathSprite, 4, 4)
-    @drawSprite(@pathSprite, 5, 5)
-    @drawSprite(@pathSprite, 6, 6)
-    @drawSprite(@pathSprite, 7, 7)
-    @drawSprite(@pathSprite, 8, 8)
+    @renderPath()
     @renderMouseSelection()
     @renderDebugOverlay(delta)
 
@@ -87,6 +80,14 @@ class Game
       continue if @field[column][row] < 0
 
       @drawSprite(@ballSprites[@field[column][row]], column, row)
+
+  renderPath: ->
+    if @pathNodes.length > 0
+      [first, ..., last] = @pathNodes
+      @drawSprite(@selectionSprites[0], first.x, first.y)
+      @drawSprite(@selectionSprites[1], last.x, last.y)
+      for node in @pathNodes
+        @drawSprite(@pathSprite, node.x, node.y)
 
   renderDebugOverlay: (delta) ->
     @ctx.fillStyle = '#10161C'
@@ -116,6 +117,15 @@ class Game
   isTileFree: (x, y) ->
     @field[x][y] < 0
 
+  constructPath: ->
+    pathHandler = new Path(@field)
+    sx = @mouseSelections[0].x
+    sy = @mouseSelections[0].y
+    dx = @mouseSelections[1].x
+    dy = @mouseSelections[1].y
+    @pathNodes = pathHandler.find(sx, sy, dx, dy)
+    @mouseSelections.pop()
+
   initInputHandler: ->
     $('canvas').on 'click', (event) =>
       offset = $('canvas').offset()
@@ -128,10 +138,12 @@ class Game
           when 0
             unless @isTileFree(currentSelection.x, currentSelection.y)
               @mouseSelections.push(currentSelection)
+              @pathNodes = []
           when 1
             if @isTileFree(currentSelection.x, currentSelection.y)
               @mouseSelections.push(currentSelection)
-          when 2
-            unless @isTileFree(currentSelection.x, currentSelection.y)
+              @constructPath()
+            else
               @mouseSelections = []
+              @pathNodes = []
               @mouseSelections.push(currentSelection)
