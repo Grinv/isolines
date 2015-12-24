@@ -45,6 +45,7 @@ There are several grunt tasks pre-defined:
 * 2015/11/24 Development environment is set (I guess)
 * 2015/12/14 Sprites and selection added
 * 2015/12/18 Started path finding implementation
+* 2015/12/24 Pathfinding implemented
 
 ## Credits
 
