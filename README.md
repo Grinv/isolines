@@ -4,6 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/ipelekhan/isolines/badges/gpa.svg)](https://codeclimate.com/github/ipelekhan/isolines)
 [![Issue Count](https://codeclimate.com/github/ipelekhan/isolines/badges/issue_count.svg)](https://codeclimate.com/github/ipelekhan/isolines)
 [![Dependency Status](https://david-dm.org/ipelekhan/isolines.svg)](https://david-dm.org/ipelekhan/isolines)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 This project is a little bit complicated clone of the old classic Color Lines game.
 
