@@ -7,7 +7,7 @@
 
 This project is a little bit complicated clone of the old classic Color Lines game.
 
-[![Early pre-alpha version game screenshot](screenshot-from-2015-12-11-14-59-57.png "Screenshot")](screenshot-from-2015-12-11-14-59-57.png)
+[![Early pre-beta version game screenshot](screenshot-from-2015-12-26-15-14-34.png "Screenshot")](screenshot-from-2015-12-26-15-14-34.png)
 
 ## Installation
 
