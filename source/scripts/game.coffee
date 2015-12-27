@@ -4,7 +4,6 @@ class Game
   gridOffset: 20
   tileSize: 64
   ballSprites: []
-  gridTile: null
   fieldSize: 9
   field: []
   mouseSelections: []
@@ -13,6 +12,8 @@ class Game
 
   constructor: ->
     @ctx = @createCanvas()
+
+    @gridSprite = new GridSprite(this)
 
     @ballSprites.push(new GreenBall(this))
     @ballSprites.push(new RedBall(this))
@@ -27,9 +28,7 @@ class Game
 
     @pathSprite = new PathSprite(this)
 
-    @gridTile = new GridTile(this)
     @initBallsPosition()
-
     @initInputHandler()
 
   createCanvas: ->
@@ -75,7 +74,7 @@ class Game
       column = i % @fieldSize
       row = i / @fieldSize | 0
 
-      @drawSprite(@gridTile, column, row)
+      @drawSprite(@gridSprite, column, row)
 
       continue if @field[column][row] < 0
 

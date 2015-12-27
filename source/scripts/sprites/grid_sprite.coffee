@@ -1,4 +1,4 @@
-class GridTile extends Sprite
+class GridSprite extends Sprite
   sx: 192
   sw: 64
   sh: 64
