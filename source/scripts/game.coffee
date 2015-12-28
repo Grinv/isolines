@@ -60,7 +60,7 @@ class Game
 
   render: (delta) ->
     @renderField()
-    @renderPath()
+    # @renderPath()
     @renderMouseSelection()
     @renderDebugOverlay(delta)
 
@@ -122,8 +122,7 @@ class Game
     sy = @mouseSelections[0].y
     dx = @mouseSelections[1].x
     dy = @mouseSelections[1].y
-    @pathNodes = pathHandler.find(sx, sy, dx, dy)
-    @mouseSelections.pop()
+    pathHandler.find(sx, sy, dx, dy)
 
   initInputHandler: ->
     $('canvas').on 'click', (event) =>
@@ -141,7 +140,14 @@ class Game
           when 1
             if @isTileFree(currentSelection.x, currentSelection.y)
               @mouseSelections.push(currentSelection)
-              @constructPath()
+              path = @constructPath()
+              if path.length > 0
+                [from, ..., to] = path
+                @field[to.x][to.y] = @field[from.x][from.y]
+                @field[from.x][from.y] = -1
+                @mouseSelections.shift()
+              else
+                @mouseSelections.pop()
             else
               @mouseSelections = []
               @pathNodes = []
