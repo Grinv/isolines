@@ -47,6 +47,7 @@ There are several grunt tasks pre-defined:
 * 2015/12/14 Sprites and selection added
 * 2015/12/18 Started path finding implementation
 * 2015/12/24 Pathfinding implemented
+* 2015/12/30 I CAN MOVE TEH BALLZ! YAY!
 
 ## Credits
 
