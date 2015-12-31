@@ -6,7 +6,7 @@
 [![Dependency Status](https://david-dm.org/ipelekhan/isolines.svg)](https://david-dm.org/ipelekhan/isolines)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
-This project is a little bit complicated clone of the old classic Color Lines game.
+This project is a little bit complicated clone of the old classic Color Lines game. Soon isometric! 
 
 [![Early pre-beta version game screenshot](screenshot-from-2015-12-26-15-14-34.png "Screenshot")](screenshot-from-2015-12-26-15-14-34.png)
 
