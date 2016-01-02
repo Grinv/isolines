@@ -60,7 +60,6 @@ class Game
 
   render: (delta) ->
     @renderField()
-    # @renderPath()
     @renderMouseSelection()
     @renderDebugOverlay(delta)
 
@@ -79,14 +78,6 @@ class Game
       continue if @field[column][row] < 0
 
       @drawSprite(@ballSprites[@field[column][row]], column, row)
-
-  renderPath: ->
-    if @pathNodes.length > 0
-      [first, ..., last] = @pathNodes
-      @drawSprite(@selectionSprites[0], first.x, first.y)
-      @drawSprite(@selectionSprites[1], last.x, last.y)
-      for node in @pathNodes
-        @drawSprite(@pathSprite, node.x, node.y)
 
   renderDebugOverlay: (delta) ->
     @ctx.fillStyle = '#10161C'
