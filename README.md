@@ -17,9 +17,10 @@ This project uses grunt as a build tool, so you'll need to have installed node.j
 ```bash
 $ git clone https://github.com/ipelekhan/isolines.git
 $ cd ./isolines
+$ npm install -g bower
+$ npm install -g grunt-cli
 $ npm install
 $ bower install
-$ npm install -g grunt-cli
 ```
 
 ## Usage
